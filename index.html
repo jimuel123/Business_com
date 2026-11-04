@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0c10">
+  <meta name="description" content="Garcia Jimuel is a Requirements Analyst who bridges business goals and software delivery through clear, actionable requirements.">
+  <title>Garcia Jimuel — Requirements Analyst</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0c10;
+      --panel: #1f2833;
+      --panel-soft: #151b23;
+      --text: #f3f5f7;
+      --muted: #aab4c0;
+      --accent: #66fcf1;
+      --accent-dark: #45d9d0;
+      --border: rgba(197, 208, 221, .14);
+      --header-height: 76px;
+      --content-width: 1120px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--header-height) + 22px);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 82% 4%, rgba(102, 252, 241, .08), transparent 31rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+    button, input, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    .skip-link {
+      position: fixed;
+      z-index: 20;
+      top: 10px;
+      left: 10px;
+      padding: 10px 14px;
+      transform: translateY(-160%);
+      border-radius: 8px;
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .site-header {
+      position: fixed;
+      z-index: 10;
+      inset: 0 0 auto;
+      height: var(--header-height);
+      border-bottom: 1px solid var(--border);
+      background: rgba(11, 12, 16, .88);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-shell {
+      width: min(var(--content-width), calc(100% - 48px));
+      height: 100%;
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      color: var(--text);
+      font-size: 1.03rem;
+      font-weight: 750;
+      letter-spacing: -.03em;
+      text-decoration: none;
+    }
+
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+
+    .nav-links a {
+      position: relative;
+      padding: 9px 13px;
+      color: var(--muted);
+      font-size: .92rem;
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover, .nav-links a[aria-current="location"] { color: var(--accent); }
+    .nav-links a[aria-current="location"]::after {
+      position: absolute;
+      right: 13px;
+      bottom: 3px;
+      left: 13px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--accent);
+      content: "";
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--panel);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      margin: 5px auto;
+      border-radius: 2px;
+      background: currentColor;
+      transition: transform .2s ease, opacity .2s ease;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(3.5px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
+
+    main { padding-top: var(--header-height); }
+    .container { width: min(var(--content-width), calc(100% - 48px)); margin-inline: auto; }
+    .section { padding-block: 104px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--accent);
+      font-size: .79rem;
+      font-weight: 750;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 23px;
+      height: 1px;
+      background: currentColor;
+      content: "";
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { line-height: 1.15; }
+    h2 { margin-bottom: 16px; font-size: clamp(2rem, 4vw, 2.8rem); letter-spacing: -.045em; }
+    .section-intro { max-width: 650px; margin-bottom: 42px; color: var(--muted); }
+
+    .hero {
+      min-height: min(740px, calc(100svh - var(--header-height)));
+      display: grid;
+      align-items: center;
+      padding-block: 96px;
+    }
+
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(240px, .7fr); gap: 60px; align-items: center; }
+    .hero h1 {
+      max-width: 760px;
+      margin: 20px 0 18px;
+      font-size: clamp(3rem, 7.3vw, 6rem);
+      letter-spacing: -.075em;
+    }
+
+    .hero h1 span { color: var(--accent); }
+    .hero-copy { max-width: 670px; margin-bottom: 30px; color: var(--muted); font-size: clamp(1.05rem, 1.7vw, 1.2rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; }
+
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 19px;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      background: var(--accent);
+      color: #0b1115;
+      font-weight: 750;
+      text-decoration: none;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .button:hover { transform: translateY(-2px); background: var(--accent-dark); border-color: var(--accent-dark); }
+    .button.secondary { background: transparent; color: var(--text); border-color: var(--border); }
+    .button.secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-card {
+      position: relative;
+      padding: 28px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(31, 40, 51, .96), rgba(21, 27, 35, .9));
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .22);
+    }
+
+    .hero-card::after {
+      position: absolute;
+      top: -50px;
+      right: -55px;
+      width: 170px;
+      height: 170px;
+      border: 1px solid rgba(102, 252, 241, .22);
+      border-radius: 50%;
+      box-shadow: 0 0 0 18px rgba(102, 252, 241, .035), 0 0 0 38px rgba(102, 252, 241, .025);
+      content: "";
+    }
+
+    .card-label { margin-bottom: 23px; color: var(--muted); font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; }
+    .hero-card blockquote { margin: 0; font-size: 1.27rem; font-weight: 650; letter-spacing: -.02em; }
+    .hero-card blockquote span { color: var(--accent); }
+    .card-rule { width: 46px; height: 3px; margin-top: 26px; border-radius: 3px; background: var(--accent); }
+
+    .about-section { border-block: 1px solid var(--border); background: rgba(31, 40, 51, .22); }
+    .about-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: 70px; align-items: start; }
+    .about-grid .section-intro { margin: 0; font-size: 1.1rem; line-height: 1.8; }
+    .about-note { padding: 25px 27px; border-left: 2px solid var(--accent); border-radius: 0 12px 12px 0; background: rgba(31, 40, 51, .65); color: var(--muted); }
+    .about-note strong { color: var(--text); }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .skill-card {
+      min-height: 220px;
+      padding: 25px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: linear-gradient(145deg, rgba(31, 40, 51, .92), rgba(21, 27, 35, .78));
+      transition: transform .2s ease, border-color .2s ease;
+    }
+
+    .skill-card:hover { transform: translateY(-4px); border-color: rgba(102, 252, 241, .5); }
+    .skill-number { display: block; margin-bottom: 20px; color: var(--accent); font-size: .8rem; font-weight: 750; letter-spacing: .1em; }
+    .skill-card h3 { margin-bottom: 11px; font-size: 1.08rem; }
+    .skill-card p { margin-bottom: 0; color: var(--muted); font-size: .94rem; }
+
+    .performance-section { border-block: 1px solid var(--border); background: rgba(31, 40, 51, .22); }
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+    .process-step { position: relative; padding: 0 25px 0 0; }
+    .process-step:not(:last-child)::after {
+      position: absolute;
+      top: 17px;
+      right: 12px;
+      left: 47px;
+      height: 1px;
+      background: var(--border);
+      content: "";
+    }
+
+    .step-marker {
+      position: relative;
+      z-index: 1;
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 22px;
+      border: 1px solid rgba(102, 252, 241, .48);
+      border-radius: 50%;
+      background: var(--bg);
+      color: var(--accent);
+      font-size: .8rem;
+      font-weight: 750;
+    }
+
+    .process-step h3 { margin-bottom: 9px; font-size: 1.05rem; }
+    .process-step p { max-width: 220px; margin-bottom: 0; color: var(--muted); font-size: .92rem; }
+
+    .contact-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 72px; }
+    .contact-details { display: grid; gap: 17px; margin-top: 30px; }
+    .contact-detail { display: grid; grid-template-columns: 35px 1fr; gap: 12px; align-items: start; }
+    .contact-icon { color: var(--accent); font-size: 1.05rem; text-align: center; }
+    .contact-detail strong { display: block; margin-bottom: 2px; font-size: .9rem; }
+    .contact-detail a, .contact-detail address { color: var(--muted); font-size: .94rem; font-style: normal; text-decoration: none; overflow-wrap: anywhere; }
+    .contact-detail a:hover { color: var(--accent); }
+
+    .contact-form { display: grid; gap: 16px; padding: 27px; border: 1px solid var(--border); border-radius: 14px; background: var(--panel); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field { display: grid; gap: 7px; }
+    .field label { font-size: .88rem; font-weight: 650; }
+    .field input, .field textarea {
+      width: 100%;
+      border: 1px solid rgba(197, 208, 221, .2);
+      border-radius: 7px;
+      background: #11161d;
+      color: var(--text);
+    }
+
+    .field input { min-height: 45px; padding: 10px 12px; }
+    .field textarea { min-height: 135px; padding: 11px 12px; resize: vertical; }
+    .field input::placeholder, .field textarea::placeholder { color: #7f8a97; }
+    .form-note { margin: -4px 0 0; color: var(--muted); font-size: .8rem; }
+    .contact-form .button { justify-self: start; cursor: pointer; }
+
+    .site-footer { padding-block: 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: .85rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 18px; }
+    .footer-inner p { margin: 0; }
+
+    dialog {
+      width: min(440px, calc(100% - 32px));
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--panel);
+      color: var(--text);
+      box-shadow: 0 24px 90px rgba(0, 0, 0, .55);
+    }
+
+    dialog::backdrop { background: rgba(3, 5, 8, .75); backdrop-filter: blur(4px); }
+    dialog h2 { margin-bottom: 12px; font-size: 1.65rem; }
+    dialog p { color: var(--muted); }
+    .dialog-actions { display: flex; justify-content: flex-end; margin-top: 23px; }
+
+    @media (max-width: 800px) {
+      :root { --header-height: 68px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 35px; }
+      .hero-card { max-width: 510px; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 30px; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-grid { grid-template-columns: repeat(2, 1fr); gap: 34px 18px; }
+      .process-step:nth-child(2)::after { display: none; }
+      .contact-grid { gap: 36px; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-shell, .container { width: min(100% - 36px, var(--content-width)); }
+      .menu-toggle { display: block; }
+      .nav-links {
+        position: absolute;
+        top: calc(var(--header-height) + 8px);
+        right: 18px;
+        left: 18px;
+        display: none;
+        align-items: stretch;
+        padding: 9px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: #151b23;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, .35);
+      }
+
+      .nav-links.is-open { display: flex; flex-direction: column; }
+      .nav-links a { padding: 12px; }
+      .nav-links a[aria-current="location"]::after { right: 12px; bottom: 5px; left: 12px; }
+      .section { padding-block: 78px; }
+      .hero { min-height: auto; padding-block: 76px; }
+      .hero h1 { font-size: clamp(2.85rem, 15vw, 4.5rem); }
+      .skills-grid { grid-template-columns: 1fr; }
+      .skill-card { min-height: auto; }
+      .process-grid { grid-template-columns: 1fr; gap: 27px; }
+      .process-step { min-height: 82px; padding-left: 52px; }
+      .step-marker { position: absolute; top: 0; left: 0; }
+      .process-step::after, .process-step:nth-child(2)::after { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form { padding: 20px; }
+      .footer-inner { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="brand" href="#about" aria-label="Garcia Jimuel home">GJ<span>.</span></a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-controls="primary-navigation" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+      <div class="nav-links" id="primary-navigation">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#performance">Performance</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero container" id="about" aria-labelledby="hero-title">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Requirements Analyst</span>
+          <h1 id="hero-title">Garcia <span>Jimuel</span></h1>
+          <p class="hero-copy">I bridge the communication gap between business stakeholders and software teams—turning complex challenges into clear, actionable technical specifications.</p>
+          <div class="hero-actions">
+            <a class="button" href="#contact">Let's connect</a>
+            <a class="button secondary" href="#skills">Explore my skills</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Professional focus">
+          <p class="card-label">My focus</p>
+          <blockquote>Making sure the right problem is understood <span>before</span> the right solution is built.</blockquote>
+          <div class="card-rule"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section about-section" aria-labelledby="about-title">
+      <div class="container about-grid">
+        <div>
+          <span class="eyebrow">About</span>
+          <h2 id="about-title">Clarity from complexity.</h2>
+        </div>
+        <div>
+          <p class="section-intro">I work at the intersection of business needs and software delivery. My objective is to make sure stakeholders and engineering teams share a clear understanding of the problem, the requirements, and what success looks like.</p>
+          <div class="about-note"><strong>From discovery to delivery</strong>, I help teams turn conversations into structured requirements, useful models, testable acceptance criteria, and aligned outcomes.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" id="skills" aria-labelledby="skills-title">
+      <span class="eyebrow">Capabilities</span>
+      <h2 id="skills-title">Skills &amp; toolkit</h2>
+      <p class="section-intro">A practical toolkit for eliciting needs, documenting decisions, and helping teams deliver with confidence.</p>
+      <div class="skills-grid">
+        <article class="skill-card">
+          <span class="skill-number">01 / DISCOVER</span>
+          <h3>Analysis &amp; Elicitation</h3>
+          <p>Requirements gathering workshops, stakeholder interviews, and process modeling with BPMN diagrams, flowcharts, and use cases.</p>
+        </article>
+        <article class="skill-card">
+          <span class="skill-number">02 / DOCUMENT</span>
+          <h3>Documentation Standards</h3>
+          <p>BRDs, FRDs, and Agile backlogs with clear user stories and acceptance criteria that teams can act on.</p>
+        </article>
+        <article class="skill-card">
+          <span class="skill-number">03 / MODEL</span>
+          <h3>Technical Tools</h3>
+          <p>Visual modeling with Draw.io, Lucidchart, and Visio, plus relational database mapping and basic SQL queries.</p>
+        </article>
+        <article class="skill-card">
+          <span class="skill-number">04 / VALIDATE</span>
+          <h3>Validation &amp; Testing</h3>
+          <p>User Acceptance Testing (UAT) coordination and disciplined change management to keep scope clear.</p>
+        </article>
+        <article class="skill-card">
+          <span class="skill-number">05 / DESIGN</span>
+          <h3>Client Focus</h3>
+          <p>Translating business goals into user experience (UI/UX) wireframes that communicate and test ideas early.</p>
+        </article>
+        <article class="skill-card">
+          <span class="skill-number">06 / ALIGN</span>
+          <h3>Collaboration</h3>
+          <p>Bridging communication between engineering squads and product managers to keep teams aligned.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section performance-section" id="performance" aria-labelledby="performance-title">
+      <div class="container">
+        <span class="eyebrow">Performance</span>
+        <h2 id="performance-title">A clear path to delivery.</h2>
+        <p class="section-intro">A collaborative, outcome-focused approach keeps requirements useful from the first conversation through validation.</p>
+        <div class="process-grid">
+          <article class="process-step">
+            <span class="step-marker">01</span>
+            <h3>Listen &amp; discover</h3>
+            <p>Understand stakeholder goals, constraints, and the problem behind the request.</p>
+          </article>
+          <article class="process-step">
+            <span class="step-marker">02</span>
+            <h3>Model &amp; define</h3>
+            <p>Make workflows, dependencies, and expectations visible to everyone involved.</p>
+          </article>
+          <article class="process-step">
+            <span class="step-marker">03</span>
+            <h3>Document &amp; align</h3>
+            <p>Translate decisions into structured requirements and testable acceptance criteria.</p>
+          </article>
+          <article class="process-step">
+            <span class="step-marker">04</span>
+            <h3>Validate &amp; refine</h3>
+            <p>Coordinate feedback and UAT so delivery stays aligned with business needs.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" id="contact" aria-labelledby="contact-title">
+      <div class="contact-grid">
+        <div>
+          <span class="eyebrow">Contact</span>
+          <h2 id="contact-title">Let's make it clear.</h2>
+          <p class="section-intro">Have a project or a business challenge to discuss? Get in touch and let's start with the requirements.</p>
+          <div class="contact-details">
+            <div class="contact-detail">
+              <span class="contact-icon" aria-hidden="true">@</span>
+              <div><strong>Email</strong><a href="mailto:garciajimuel46@gmail.com">garciajimuel46@gmail.com</a></div>
+            </div>
+            <div class="contact-detail">
+              <span class="contact-icon" aria-hidden="true">☎</span>
+              <div><strong>Phone</strong><a href="tel:+639935916891">09935916891</a></div>
+            </div>
+            <div class="contact-detail">
+              <span class="contact-icon" aria-hidden="true">⌖</span>
+              <div><strong>Location</strong><address>016, Muzon San Juan Batangas</address></div>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" id="contact-form">
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" autocomplete="name" placeholder="Jane Smith" required minlength="2" maxlength="100">
+            </div>
+            <div class="field">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="jane@example.com" required maxlength="254">
+            </div>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell me a little about what you have in mind..." required minlength="10" maxlength="3000"></textarea>
+          </div>
+          <p class="form-note">This demo form shows a confirmation but does not send or store your message.</p>
+          <button class="button" type="submit">Send message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="current-year"></span> Garcia Jimuel</p>
+      <p>Requirements Analyst · Turning needs into clarity</p>
+    </div>
+  </footer>
+
+  <dialog id="form-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-message">
+    <h2 id="dialog-title">Message noted</h2>
+    <p id="dialog-message"></p>
+    <div class="dialog-actions"><button class="button" id="dialog-close" type="button">Got it</button></div>
+  </dialog>
+
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector("#primary-navigation");
+    const navigationLinks = [...navigation.querySelectorAll('a[href^="#"]')];
+    const sections = navigationLinks
+      .map((link) => document.querySelector(link.getAttribute("href")))
+      .filter(Boolean);
+
+    function closeMenu() {
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open navigation menu");
+      navigation.classList.remove("is-open");
+    }
+
+    menuToggle.addEventListener("click", () => {
+      const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isExpanded));
+      menuToggle.setAttribute("aria-label", isExpanded ? "Open navigation menu" : "Close navigation menu");
+      navigation.classList.toggle("is-open", !isExpanded);
+    });
+
+    navigationLinks.forEach((link) => link.addEventListener("click", closeMenu));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      const visibleSections = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+      if (!visibleSections.length) return;
+
+      const activeId = visibleSections[0].target.id;
+      navigationLinks.forEach((link) => {
+        if (link.getAttribute("href") === `#${activeId}`) {
+          link.setAttribute("aria-current", "location");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+    }, {
+      rootMargin: "-20% 0px -55% 0px",
+      threshold: [0, 0.1, 0.25, 0.5]
+    });
+
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    const contactForm = document.querySelector("#contact-form");
+    const formDialog = document.querySelector("#form-dialog");
+    const dialogMessage = document.querySelector("#dialog-message");
+
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(contactForm);
+      const name = String(formData.get("name")).trim();
+      const email = String(formData.get("email")).trim();
+      const message = String(formData.get("message")).trim();
+      const nameInput = contactForm.elements.name;
+      const emailInput = contactForm.elements.email;
+      const messageInput = contactForm.elements.message;
+
+      nameInput.setCustomValidity(name.length < 2 ? "Please enter a name with at least 2 characters." : "");
+      messageInput.setCustomValidity(message.length < 10 ? "Please enter a message with at least 10 characters." : "");
+      if (!contactForm.reportValidity()) return;
+
+      dialogMessage.textContent = `Thanks, ${name}. Your message has been prepared. This demo form does not send email; please contact Garcia directly at garciajimuel46@gmail.com.`;
+      formDialog.showModal();
+      contactForm.reset();
+    });
+
+    contactForm.addEventListener("input", (event) => {
+      if (event.target.name === "name" || event.target.name === "message") {
+        event.target.setCustomValidity("");
+      }
+    });
+    document.querySelector("#dialog-close").addEventListener("click", () => formDialog.close());
+    formDialog.addEventListener("click", (event) => {
+      if (event.target === formDialog) formDialog.close();
+    });
+    document.querySelector("#current-year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
